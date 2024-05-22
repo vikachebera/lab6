@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electronic Library</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<h1>Electronic Library</h1>
+<div class="container">
+    <div id="library-interface">
+        <div id="user-section">
+            <h2>Users</h2>
+            <form id="add-user-form">
+                <input type="text" id="user-name" placeholder="Name" required>
+                <input type="email" id="user-email" placeholder="Email" required>
+                <button type="submit">Add User</button>
+            </form>
+            <div class="link">
+                <a href="users_list.php">Перейти до списку користувачів</a>
+            </div>
+
+        </div>
+
+        <div id="book-section">
+            <h2>Books</h2>
+            <form id="add-book-form">
+                <input type="text" id="book-title" placeholder="Title" required>
+                <input type="text" id="book-author" placeholder="Author" required>
+                <input type="text" id="book-isbn" placeholder="ISBN" required>
+                <button type="submit">Add Book</button>
+            </form>
+        </div>
+        <div class="link">
+            <a href="books_list.php">Перейти до списку книг</a>
+        </div>
+    </div>
+
+</div>
+<script src="js/script.js"></script>
+</body>
+</html>
