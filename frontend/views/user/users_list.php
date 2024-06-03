@@ -1,8 +1,8 @@
 <?php
 
-use backend\Library;
+use backend\core\Library;
 
-include_once('../backend/Library.php');
+include_once('../../../backend/core/Library.php');
 $library = Library::getInstance();
 $users = $library->getAllUsers();
 
@@ -14,7 +14,7 @@ $users = $library->getAllUsers();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User List - Electronic Library</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../../static/css/style.css">
 </head>
 <body>
 <h1>User List</h1>
@@ -54,7 +54,7 @@ $users = $library->getAllUsers();
         </form>
     </div>
     <div class="link">
-        <a href="index.html">На головну</a>
+        <a href="../../index.html">На головну</a>
     </div></div>
 </div>
 <script>

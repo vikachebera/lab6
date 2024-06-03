@@ -1,13 +1,19 @@
 <?php
 
-namespace backend;
+namespace backend\core;
 
+use backend\Database;
+use backend\Exception;
+use backend\model\Book;
+use backend\model\Loan;
+use backend\model\User;
 use PDO;
 use PDOException;
 
-include_once('User.php');
-include_once('Book.php');
-include_once('config.php');
+include_once('../model/User.php');
+include_once('../model/Book.php');
+include_once('../config/config.php');
+include_once('../DB/Database.php');
 
 class Library
 {
@@ -16,12 +22,7 @@ class Library
 
     private function __construct()
     {
-        try {
-            $this->pdo = new PDO('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME, DB_USER, DB_PASS);
-            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch (PDOException $e) {
-            die("Could not connect to the database: " . $e->getMessage());
-        }
+        $this->pdo = Database::getInstance()->getPDO();
     }
 
     public static function getInstance()
@@ -75,18 +76,15 @@ class Library
         }
     }
 
-
     public function getAllLoans()
     {
         $stmt = $this->pdo->query("SELECT * FROM loans WHERE is_returned = FALSE");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-
     public function returnBook($loanId)
     {
         try {
-            // Get the book ID associated with the loan
             $stmt = $this->pdo->prepare("SELECT book_id FROM loans WHERE id = ?");
             $stmt->execute([$loanId]);
             $bookId = $stmt->fetchColumn();
@@ -95,7 +93,6 @@ class Library
                 throw new Exception("Loan ID not found or book already returned");
             }
 
-            // Delete the loan record
             $stmt = $this->pdo->prepare("DELETE FROM loans WHERE id = ?");
             $stmt->execute([$loanId]);
 
@@ -106,7 +103,6 @@ class Library
         }
     }
 
-
     public function removeBookById($bookId)
     {
         $stmt = $this->pdo->prepare("DELETE FROM notes WHERE id = ?");
@@ -116,23 +112,19 @@ class Library
     public function deleteUser($userId)
     {
         try {
-            // Підготовка запиту для перевірки існування користувача за його ID
             $stmt = $this->pdo->prepare("SELECT id FROM user WHERE id = ?");
             $stmt->execute([$userId]);
             $userIdExist = $stmt->fetchColumn();
 
-            // Перевірка, чи користувач існує
             if (!$userIdExist) {
                 throw new Exception("User ID not found");
             }
 
-            // Видалення користувача
             $stmt = $this->pdo->prepare("DELETE FROM user WHERE id = ?");
             $stmt->execute([$userId]);
 
             return true;
         } catch (PDOException $e) {
-            // Обробка помилок бази даних
             error_log("Error deleting user: " . $e->getMessage());
             throw new Exception("Failed to delete user");
         }
@@ -142,24 +134,6 @@ class Library
     {
         return $this->pdo;
     }
-
-//    public function deleteUser($userId)
-//    {
-//        $stmt = $this->pdo->prepare("SELECT id FROM user WHERE id = ?");
-//        $stmt->execute([$userId]);
-//        $userIdExist = $stmt->fetchColumn();
-//
-//        if (!$userIdExist) {
-//            throw new Exception("User ID not found");
-//        }
-//
-//        $stmt = $this->pdo->prepare("DELETE FROM user WHERE id = ?");
-//        $stmt->execute([$userId]);
-//
-//        return true;
-//    }
-
-
 }
 
 ?>
