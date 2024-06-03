@@ -1,6 +1,6 @@
 <?php
 
-namespace backend;
+namespace backend\model;
 class Book
 {
     private $id;

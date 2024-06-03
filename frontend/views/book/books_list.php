@@ -1,8 +1,8 @@
 <?php
 
-use backend\Library;
+use backend\core\Library;
 
-include_once('../backend/Library.php');
+include_once('../../../backend/core/Library.php');
 $library = Library::getInstance();
 $books = $library->getAllBooks();
 $loans = $library->getAllLoans();
@@ -15,7 +15,7 @@ $loans = $library->getAllLoans();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Books List - Electronic Library</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../../static/css/style.css">
 </head>
 <body>
 <div class="container_loans">
@@ -87,7 +87,7 @@ $loans = $library->getAllLoans();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../../static/css/style.css">
     <title>Loan book</title>
 </head>
 <body>
@@ -112,10 +112,10 @@ $loans = $library->getAllLoans();
             <a href="return_book.php">Повернути книгу</a>
         </div>
         <div class="link">
-            <a href="index.html">На головну</a>
+            <a href="../../index.html">На головну</a>
         </div></div>
 
 </div>
-<script src="js/script_loan.js"></script>
+<script src="../../static/js/script_loan.js"></script>
 </body>
 </html>
